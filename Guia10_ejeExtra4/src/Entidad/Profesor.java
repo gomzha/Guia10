@@ -4,10 +4,6 @@ public class Profesor extends Empleado{
 
     private String departamento;
 
-    public Profesor(String nombre, String dni, String estadoCivil, int anioIncor, int numDespacho) {
-        super(nombre, dni, estadoCivil, anioIncor, numDespacho);
-    }
-
     public Profesor(String nombre, String dni, String estadoCivil, int anioIncor, int numDespacho, String departamento) {
         super(nombre, dni, estadoCivil, anioIncor, numDespacho);
         this.departamento = departamento;

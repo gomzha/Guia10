@@ -18,7 +18,6 @@ public class ServicioEstudiante {
         System.out.println("Ingrese el curso donde se encuentra matriculado: ");
         curso=leer.next();
 
-
         return new Estudiante(persona.getNombre(), persona.getDni(), persona.getEstadoCivil(),curso);
     }
 
