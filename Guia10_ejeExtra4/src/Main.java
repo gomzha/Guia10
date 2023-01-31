@@ -1,5 +1,4 @@
 import Entidad.*;
-import Servicio.ServicioEmpleado;
 import Servicio.ServicioEmpleadoDeServicio;
 import Servicio.ServicioEstudiante;
 import Servicio.ServicioProfesor;
@@ -8,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    static Scanner leer = new Scanner(System.in).useDelimiter("\n");
     public static void main(String[] args) {
         ArrayList<Persona> personaArrayList = new ArrayList<>();
-        Scanner leer = new Scanner(System.in).useDelimiter("\n");
 
         int opcion = 0;
         boolean salir = false;
@@ -23,9 +22,14 @@ public class Main {
             System.out.println("2-Listar Profesores ");
             System.out.println("3-Nuevo Personal de servicio ");
             System.out.println("4-Listar Personal de servicio ");
-            System.out.println("5-Nuevo Estudiante ");
+            System.out.println("5-Matriculación de un estudiante en un nuevo curso");
             System.out.println("6-Listar Estudiantes ");
-            System.out.println("7-SALIR");
+            System.out.println("7-Cambio de estado de civil "); //listo
+            System.out.println("8-Reasignación de despacho ");
+            System.out.println("9-Cambio de sección de un empleado del personal de servicio");
+            System.out.println("10-Cambio de estado de civil ");
+
+            System.out.println("11-SALIR");
             opcion = leer.nextInt();
 
 
@@ -61,6 +65,25 @@ public class Main {
                     break;
                 }
                 case 7 -> {
+                    System.out.println("Usted eligió la opcion 7.");
+                    personaArrayList = cambiarEstadoCivil(personaArrayList);
+                    break;
+                }
+                case 8 -> {
+                    System.out.println("Usted eligió la opcion 8.");
+                    listarIndividuos("ESTUDIANTE", personaArrayList);
+                    break;
+                }
+                case 9 -> {
+                    System.out.println("Usted eligió la opcion 9.");
+                    listarIndividuos("ESTUDIANTE", personaArrayList);
+                    break;
+                }
+                case 10 -> {
+                    System.out.println("Usted eligió la opcion 10.");
+                    break;
+                }
+                case 11 -> {
                     salir = true;
                     break;
                 }
@@ -91,6 +114,27 @@ public class Main {
 
         }
 
+    }
+
+    private static ArrayList<Persona> cambiarEstadoCivil(ArrayList<Persona> personaArrayList) {
+
+        System.out.println("Ingrese el número de persona que desea mod el estado");
+        listarTodos(personaArrayList);
+        int num=leer.nextInt()-1;
+        System.out.println("Ingrese el estado civil: ");
+        personaArrayList.get(num).setEstadoCivil(leer.next());
+        return personaArrayList;
+    }
+
+    private static void listarTodos(ArrayList<Persona> personaArrayList) {
+        int vectorCont = 0;
+        int num = 1;
+
+        for (Persona persona : personaArrayList) {
+            System.out.println("Persona N°:  " + num + " " + persona.toString());
+            System.out.println("____________________________");
+            num++;
+        }
     }
 
     private static void listarIndividuos(String opcion, ArrayList<Persona> personaArrayList) {
@@ -124,7 +168,7 @@ public class Main {
             }
         }
 
-        if (vectorCont == 0){
+        if (vectorCont == 0) {
             System.out.println("No se encuentra cargado ningún " + opcion);
         }
 
