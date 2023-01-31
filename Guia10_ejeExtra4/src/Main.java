@@ -25,10 +25,9 @@ public class Main {
             System.out.println("5-Matriculación de un estudiante en un nuevo curso");
             System.out.println("6-Listar Estudiantes ");
             System.out.println("7-Cambio de estado de civil "); //listo
-            System.out.println("8-Reasignación de despacho ");
+            System.out.println("8-Reasignación de departamento de un profesor ");  //listo
             System.out.println("9-Cambio de sección de un empleado del personal de servicio");
-            System.out.println("10-Cambio de estado de civil ");
-
+            System.out.println("10-Cambio de despacho de un empleado");
             System.out.println("11-SALIR");
             opcion = leer.nextInt();
 
@@ -66,21 +65,23 @@ public class Main {
                 }
                 case 7 -> {
                     System.out.println("Usted eligió la opcion 7.");
-                    personaArrayList = cambiarEstadoCivil(personaArrayList);
+                    //personaArrayList = cambiarEstadoCivil(personaArrayList); --> se puede abreviar sin colocar el "personaArrayList = "
+                    cambiarEstadoCivil(personaArrayList);
                     break;
                 }
                 case 8 -> {
                     System.out.println("Usted eligió la opcion 8.");
-                    listarIndividuos("ESTUDIANTE", personaArrayList);
+                    cambiarDepartamentoProfesor(personaArrayList);
                     break;
                 }
                 case 9 -> {
                     System.out.println("Usted eligió la opcion 9.");
-                    listarIndividuos("ESTUDIANTE", personaArrayList);
+                    cambiarSeccionEmpleadoDeServicio(personaArrayList);
                     break;
                 }
                 case 10 -> {
                     System.out.println("Usted eligió la opcion 10.");
+                    cambiarDespachoEmpleado(personaArrayList);
                     break;
                 }
                 case 11 -> {
@@ -101,7 +102,7 @@ public class Main {
         personaArrayList.add(new ServicioEmpleado().nuevoEmpleado());
 */
 
-        for (Persona persona : personaArrayList) {
+       /* for (Persona persona : personaArrayList) {
 
             if (persona instanceof Estudiante estudiante) {
                 System.out.println("La persona es un estudiante:  " + estudiante.toString());
@@ -112,22 +113,53 @@ public class Main {
             }
             System.out.println("____________________________");
 
-        }
+        }*/
 
     }
 
-    private static ArrayList<Persona> cambiarEstadoCivil(ArrayList<Persona> personaArrayList) {
+    private static void cambiarDespachoEmpleado(ArrayList<Persona> personaArrayList) {
+        System.out.println("Ingrese el número del Empleado al que desea mod el despacho");
+        listarIndividuos("EMPLEADO", personaArrayList);
+        int num=leer.nextInt()-1;
+        System.out.println("Ingrese el nuevo despacho: ");
+        Persona persona = personaArrayList.get(num);
+        if (persona instanceof Empleado personal) {
+            personal.setNumDespacho(leer.nextInt());
+        }
+    }
+
+    private static void cambiarSeccionEmpleadoDeServicio(ArrayList<Persona> personaArrayList) {
+        System.out.println("Ingrese el número del Empleado de servicio al que desea mod la sección");
+        listarIndividuos("EMPSERVICIO", personaArrayList);
+        int num=leer.nextInt()-1;
+        System.out.println("Ingrese la nueva sección: ");
+        Persona persona = personaArrayList.get(num);
+        if (persona instanceof PersonalDeServicio personal) {
+            personal.setSeccion(leer.next());
+        }
+    }
+
+    private static void cambiarDepartamentoProfesor(ArrayList<Persona> personaArrayList) {
+        System.out.println("Ingrese el número del profesor al que desea mod el Departamento");
+        listarIndividuos("PROFESOR", personaArrayList);
+        int num=leer.nextInt()-1;
+        System.out.println("Ingrese el Departamento: ");
+            Persona persona = personaArrayList.get(num);
+            if (persona instanceof Profesor profesor) {
+                profesor.setDepartamento(leer.next());
+            }
+    }
+
+    private static void cambiarEstadoCivil(ArrayList<Persona> personaArrayList) {
 
         System.out.println("Ingrese el número de persona que desea mod el estado");
         listarTodos(personaArrayList);
         int num=leer.nextInt()-1;
         System.out.println("Ingrese el estado civil: ");
         personaArrayList.get(num).setEstadoCivil(leer.next());
-        return personaArrayList;
     }
 
     private static void listarTodos(ArrayList<Persona> personaArrayList) {
-        int vectorCont = 0;
         int num = 1;
 
         for (Persona persona : personaArrayList) {
@@ -143,7 +175,7 @@ public class Main {
         if (opcion.equals("PROFESOR")) {
             for (Persona persona : personaArrayList) {
                 if (persona instanceof Profesor profesor) {
-                    System.out.println("Profesor:  " + profesor.toString());
+                    System.out.println((vectorCont + 1) + "- Profesor:  " + profesor.toString());
                     System.out.println("____________________________");
                     vectorCont++;
                 }
@@ -151,17 +183,23 @@ public class Main {
         } else if (opcion.equals("ESTUDIANTE")) {
             for (Persona persona : personaArrayList) {
                 if (persona instanceof Estudiante estudiante) {
-                    System.out.println("Estudiante:  " + estudiante.toString());
+                    System.out.println((vectorCont + 1) + "Estudiante:  " + estudiante.toString());
                     System.out.println("____________________________");
                     vectorCont++;
                 }
-
-
             }
         } else if (opcion.equals("EMPSERVICIO")) {
             for (Persona persona : personaArrayList) {
                 if (persona instanceof PersonalDeServicio personalDeServicio) {
-                    System.out.println("Personal de Servicio:  " + personalDeServicio.toString());
+                    System.out.println((vectorCont + 1) + "Personal de Servicio:  " + personalDeServicio.toString());
+                    System.out.println("____________________________");
+                    vectorCont++;
+                }
+            }
+        }else if (opcion.equals("EMPLEADO")) {
+            for (Persona persona : personaArrayList) {
+                if (persona instanceof Empleado personal) {
+                    System.out.println((vectorCont + 1) + "Personal de Servicio:  " + personal.toString());
                     System.out.println("____________________________");
                     vectorCont++;
                 }
